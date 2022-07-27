@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+
+  etl-app:
+    container_name: etl-app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    entrypoint: [ "tail", "-f", "/dev/null" ]
+    volumes:
+      - './app:/app'
+    environment:
+      - CASSANDRA_IP_ADDRESS=cassandra
+      - CASSANDRA_KEYSPACE=test
+    depends_on:
+      - cassandra
+
+  cassandra:
+      image: cassandra:latest
+      container_name: cassandra
+      ports:
+        - "9042:9042"
+      environment:
+        - "MAX_HEAP_SIZE=256M"
+        - "HEAP_NEWSIZE=128M"
+      restart: always
+      volumes:
+        - ./out/cassandra_data:/var/lib/cassandra
