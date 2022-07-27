@@ -6,7 +6,7 @@ import tensorflow as tf
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-model = tf.keras.models.load_model('model/model.h5')
+model = tf.keras.models.load_model('model/model.h5', compile=False)
 
 
 @app.route('/', methods=['GET'])

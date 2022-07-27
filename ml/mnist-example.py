@@ -45,5 +45,4 @@ model.fit(
     verbose=1
 )
 
-tf.keras.models.save_model(model, 'app/model/model.h5')
-
+tf.keras.models.save_model(model, 'model/model.h5')
